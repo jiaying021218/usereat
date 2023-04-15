@@ -12,7 +12,7 @@ grant all privileges on usereat.* to 'webapp'@'%';
 flush privileges;
 
 -- Move into the database we just created.
-use cool_db;
+use usereat;
 
 -- -------------------------------------------------------
 -- Table: Employees
