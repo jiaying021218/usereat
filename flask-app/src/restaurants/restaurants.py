@@ -10,13 +10,13 @@ restaurants = Blueprint('restaurants', __name__)
 def test_restaurants():
   return "<h1>This is a restaurants test</h1>"
 
-# Get all the products from the database
+# Get all the restaurants from the database
 @restaurants.route('/restaurants', methods=['GET'])
 def get_restaurants():
     # get a cursor object from the database
     cursor = db.get_db().cursor()
 
-    # use cursor to query the database for a list of products
+    # use cursor to query the database for a list of restaurants
     cursor.execute('SELECT * FROM Restaurants')
 
     # grab the column headers from the returned data
