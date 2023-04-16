@@ -35,7 +35,7 @@ def create_app():
     from src.products.products  import products
     
     from src.customer_ben_blueprint.customer_ben_blueprint import customer_ben_blueprint
-    from src.oremployee_jacob_blueprintders.employee_jacob_blueprint import employee_jacob_blueprint
+    from src.employee_jacob_blueprintders.employee_jacob_blueprint import employee_jacob_blueprint
 
     # Register the routes that we just imported so they can be properly handled
     app.register_blueprint(views,       url_prefix='/v')
