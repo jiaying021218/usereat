@@ -3,15 +3,15 @@ import json
 from src import db
 
 
-restaurants = Blueprint('restaurants', __name__)
+customer_ben_blueprint = Blueprint('customer_ben_blueprint', __name__)
 
 # Test the restaurants route
-@restaurants.route('/', methods=['GET'])
+@customer_ben_blueprint.route('/', methods=['GET'])
 def test_restaurants():
-  return "<h1>This is a restaurants test</h1>"
+  return "<h1>This is a test for customer Ben</h1>"
 
 # Get all the restaurants from the database
-@restaurants.route('/restaurants', methods=['GET'])
+@customer_ben_blueprint.route('/restaurants', methods=['GET'])
 def get_restaurants():
     # get a cursor object from the database
     cursor = db.get_db().cursor()
