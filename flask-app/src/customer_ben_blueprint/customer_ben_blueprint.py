@@ -5,9 +5,9 @@ from src import db
 
 customer_ben_blueprint = Blueprint('customer_ben_blueprint', __name__)
 
-# Test the restaurants route
+# Test the customer Ben route
 @customer_ben_blueprint.route('/', methods=['GET'])
-def test_restaurants():
+def test_route():
   return "<h1>This is a test for customer Ben</h1>"
 
 # Get all the restaurants from the database
