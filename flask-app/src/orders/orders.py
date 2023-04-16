@@ -5,18 +5,18 @@ from src import db
 
 orders = Blueprint('orders', __name__)
 
-# Test the Orders route
+# Test the orders route
 @orders.route('/', methods=['GET'])
 def test_orders():
   return "<h1>This is a orders test</h1>"
 
-# Get all the products from the database
+# Get all the orders from the database
 @orders.route('/orders', methods=['GET'])
 def get_orders():
     # get a cursor object from the database
     cursor = db.get_db().cursor()
 
-    # use cursor to query the database for a list of products
+    # use cursor to query the database for a list of orders
     cursor.execute('SELECT * FROM Orders')
 
     # grab the column headers from the returned data
@@ -37,13 +37,13 @@ def get_orders():
     return jsonify(json_data)
 
   
-  # Get all the orders
+# Get all the orders of restaurant with Id 6
 @orders.route('/orders/6', methods=['GET'])
-def get_orders_6():
+def get_orders_restaurants_6():
   # get a cursor object from the database
   cursor = db.get_db().cursor()
 
-  # use cursor to query the database for a list of products
+  # use cursor to query the database for a list of orders
   cursor.execute('SELECT * FROM Orders WHERE restaurant_id = 6 ORDER BY order_time ASC')
 
   # grab the column headers from the returned data
