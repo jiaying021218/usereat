@@ -46,3 +46,38 @@ def get_orders():
       json_data.append(dict(zip(column_headers, row)))
 
   return jsonify(json_data)
+
+# [Jacob-2]
+# Get all the co-workers' information
+@employee_jacob_blueprint.route('/employees', methods=['GET'])
+def get_employees():
+  # get a cursor object from the database
+  cursor = db.get_db().cursor()
+
+  # use cursor to query the database for a list of co-workers' information
+  cursor.execute(
+    '''SELECT
+    Employees.first_name as \"First Name\",
+    Employees.last_name as \"Last Name\",
+    Employees.email as \"Email\",
+    Employees.phone as \"Phone\",
+    Employees.title as \"Title\"
+    FROM Employees
+    WHERE Employees.restaurant_id = 6 AND first_name != \'Jacob\'''')
+
+  # grab the column headers from the returned data
+  column_headers = [x[0] for x in cursor.description]
+
+  # create an empty dictionary object to use in 
+  # putting column headers together with data
+  json_data = []
+
+  # fetch all the data from the cursor
+  theData = cursor.fetchall()
+
+  # for each of the rows, zip the data elements together with
+  # the column headers. 
+  for row in theData:
+      json_data.append(dict(zip(column_headers, row)))
+
+  return jsonify(json_data)
