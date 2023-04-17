@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `Foods` (
   `name` varchar(255) NOT NULL,
   `description` text DEFAULT NULL,
   `price` decimal NOT NULL DEFAULT 0,
-  `discount` decimal DEFAULT NULL
+  `discount` decimal NOT NULL DEFAULT 0
 );
 
 -- -------------------------------------------------------
@@ -378,31 +378,35 @@ INSERT INTO `Menus` (`menu_id`, `restaurant_id`, `name`) VALUES
 (5, 3, 'Dinner'),
 (6, 4, 'Both'),
 (7, 5, 'Lunch'),
-(8, 5, 'Dinner');
+(8, 5, 'Dinner'),
+(9, 6, 'Both');
 
 -- Foods
 INSERT INTO `Foods` (`food_id`, `menu_id`, `name`, `description`, `price`, `discount`) VALUES
-(1, 1, 'Pepperoni Pizza', 'Pepperoni, mozzarella, and tomato sauce', 10.99, NULL),
+(1, 1, 'Pepperoni Pizza', 'Pepperoni, mozzarella, and tomato sauce', 10.99, 0.00),
 (2, 1, 'Veggie Pizza', 'Mixed vegetables, mozzarella, and tomato sauce', 9.99, 1.00),
-(3, 2, 'Spaghetti Bolognese', 'Spaghetti with meat sauce', 12.99, NULL),
+(3, 2, 'Spaghetti Bolognese', 'Spaghetti with meat sauce', 12.99, 0.00),
 (4, 2, 'Fettuccine Alfredo', 'Fettuccine with creamy Alfredo sauce', 11.99, 3.00),
-(5, 3, 'Cheeseburger', 'Cheeseburger with lettuce, tomato, and onion', 5.99, NULL),
-(6, 3, 'Chicken Nuggets', 'Crispy chicken nuggets with dipping sauce', 4.99, NULL),
-(7, 4, 'Kung Pao Chicken', 'Spicy chicken with peanuts and vegetables', 13.99, NULL),
+(5, 3, 'Cheeseburger', 'Cheeseburger with lettuce, tomato, and onion', 5.99, 0.00),
+(6, 3, 'Chicken Nuggets', 'Crispy chicken nuggets with dipping sauce', 4.99, 0.00),
+(7, 4, 'Kung Pao Chicken', 'Spicy chicken with peanuts and vegetables', 13.99, 0.00),
 (8, 4, 'Fried Rice', 'Classic fried rice with vegetables and egg', 8.99, 2.00),
-(9, 5, 'Lasagna', 'Layers of pasta, ricotta, mozzarella, and meat sauce', 14.99, NULL),
+(9, 5, 'Lasagna', 'Layers of pasta, ricotta, mozzarella, and meat sauce', 14.99, 0.00),
 (10, 5, 'Caesar Salad', 'Romaine lettuce, croutons, and Caesar dressing', 7.99, 1.00),
-(11, 3, 'Pepperoni Pizza', 'Classic pepperoni pizza with mozzarella cheese and tomato sauce', 10.99, NULL),
+(11, 3, 'Pepperoni Pizza', 'Classic pepperoni pizza with mozzarella cheese and tomato sauce', 10.99, 0.00),
 (12, 3, 'Mushroom Pizza', 'Mushroom pizza with mozzarella cheese and tomato sauce', 10.99, 2.55),
-(13, 3, 'Veggie Pizza', 'Vegetarian pizza with bell peppers, onions, mushrooms, olives, and tomatoes', 11.99, NULL),
-(14, 3, 'BBQ Chicken Pizza', 'BBQ chicken pizza with red onion, cilantro, and BBQ sauce', 12.99, NULL),
+(13, 3, 'Veggie Pizza', 'Vegetarian pizza with bell peppers, onions, mushrooms, olives, and tomatoes', 11.99, 0.00),
+(14, 3, 'BBQ Chicken Pizza', 'BBQ chicken pizza with red onion, cilantro, and BBQ sauce', 12.99, 0.00),
 (15, 3, 'Hawaiian Pizza', 'Hawaiian pizza with ham, pineapple, and bacon', 11.99, 3.99),
-(16, 4, 'Cheeseburger', 'Classic cheeseburger with lettuce, tomato, and onion', 7.99, NULL),
+(16, 4, 'Cheeseburger', 'Classic cheeseburger with lettuce, tomato, and onion', 7.99, 0.00),
 (17, 4, 'Bacon Cheeseburger', 'Bacon cheeseburger with lettuce, tomato, and onion', 8.99, 1.99),
-(18, 4, 'Grilled Chicken Sandwich', 'Grilled chicken sandwich with lettuce, tomato, and mayo', 7.99, NULL),
-(19, 4, 'Veggie Burger', 'Vegetarian burger with lettuce, tomato, and onion', 7.99, NULL),
-(20, 4, 'Fish Sandwich', 'Fish sandwich with tartar sauce, lettuce, and tomato', 7.99, 0.99);
-
+(18, 4, 'Grilled Chicken Sandwich', 'Grilled chicken sandwich with lettuce, tomato, and mayo', 7.99, 0.00),
+(19, 4, 'Veggie Burger', 'Vegetarian burger with lettuce, tomato, and onion', 7.99, 0.00),
+(20, 4, 'Fish Sandwich', 'Fish sandwich with tartar sauce, lettuce, and tomato', 7.99, 0.99),
+(21, 9, 'Cheeseburger', NULL, 4.99, 0.00),
+(22, 9, 'Bacon Cheeseburger', NULL, 5.99, 0.00),
+(23, 9, 'Chicken Burger', NULL, 4.99, 0.99),
+(24, 9, 'French Fries', NULL, 3.99, 0.00);
 
 -- Employees
 INSERT INTO `Employees` (`employee_id`, `restaurant_id`, `first_name`, `last_name`, `manager_id`, `email`, `phone`, `title`) VALUES
