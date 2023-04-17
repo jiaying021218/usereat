@@ -3,16 +3,17 @@
 -- Create a new database.  You can change the name later.  You'll
 -- need this name in the FLASK API file(s),  the AppSmith 
 -- data source creation.
-create database usereat;
+DROP DATABASE IF EXISTS `usereat`;
+CREATE DATABASE `usereat`;
 
 -- Via the Docker Compose file, a special user called webapp will 
 -- be created in MySQL. We are going to grant that user 
 -- all privilages to the new database we just created. 
-grant all privileges on usereat.* to 'webapp'@'%';
-flush privileges;
+GRANT ALL PRIVILEGES ON usereat.* TO 'webapp'@'%';
+FLUSH PRIVILEGES;
 
 -- Move into the database we just created.
-use usereat;
+USE `usereat`;
 
 -- -------------------------------------------------------
 -- Table: Employees
