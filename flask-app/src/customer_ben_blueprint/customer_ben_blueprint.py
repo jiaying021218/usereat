@@ -116,7 +116,7 @@ def get_restaurants_newyork_discountfood():
 
     return jsonify(json_data)
   
-  # [Ben-4]
+# [Ben-4]
 # Get the menu of Burger Express from the dataabase
 @customer_ben_blueprint.route('/burger_express/menu', methods=['GET'])
 def get_burgerexpress_menu():
