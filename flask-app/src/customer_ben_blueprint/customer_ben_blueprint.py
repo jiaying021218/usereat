@@ -10,14 +10,17 @@ customer_ben_blueprint = Blueprint('customer_ben_blueprint', __name__)
 def test_route():
   return "<h1>This is a test for customer Ben</h1>"
 
-# Get all the restaurants from the database
+# Get all the New York restaurants from the database
 @customer_ben_blueprint.route('/restaurants', methods=['GET'])
 def get_restaurants():
     # get a cursor object from the database
     cursor = db.get_db().cursor()
 
     # use cursor to query the database for a list of restaurants
-    cursor.execute('SELECT * FROM Restaurants')
+    cursor.execute(
+      '''SELECT * 
+      FROM Restaurants JOIN Restaurants_Locations ON Restaurants.restaurant_id = Restaurants_Locations.restaurant_id 
+      WHERE Restaurants_Locations.city = \'New York\'''')
 
     # grab the column headers from the returned data
     column_headers = [x[0] for x in cursor.description]
