@@ -404,10 +404,10 @@ INSERT INTO `Foods` (`food_id`, `menu_id`, `name`, `description`, `price`, `disc
 (18, 4, 'Grilled Chicken Sandwich', 'Grilled chicken sandwich with lettuce, tomato, and mayo', 7.99, 0.00),
 (19, 4, 'Veggie Burger', 'Vegetarian burger with lettuce, tomato, and onion', 7.99, 0.00),
 (20, 4, 'Fish Sandwich', 'Fish sandwich with tartar sauce, lettuce, and tomato', 7.99, 0.99),
-(21, 9, 'Cheeseburger', NULL, 4.99, 0.00),
-(22, 9, 'Bacon Cheeseburger', NULL, 5.99, 0.00),
-(23, 9, 'Chicken Burger', NULL, 4.99, 0.99),
-(24, 9, 'French Fries', NULL, 3.99, 0.00);
+(21, 9, 'Cheeseburger', 'Classic cheeseburger with lettuce and tomato', 4.99, 0.00),
+(22, 9, 'Bacon Cheeseburger', 'Cheeseburger with bacon wrapped around the patty', 5.99, 0.00),
+(23, 9, 'Chicken Sandwich', 'Spicy chick sandwich with mayo', 4.99, 0.99),
+(24, 9, 'French Fries', 'Regular size french fries with ketchup', 3.99, 0.00);
 
 -- Employees
 INSERT INTO `Employees` (`employee_id`, `restaurant_id`, `first_name`, `last_name`, `manager_id`, `email`, `phone`, `title`) VALUES
