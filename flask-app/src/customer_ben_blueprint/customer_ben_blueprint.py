@@ -10,6 +10,7 @@ customer_ben_blueprint = Blueprint('customer_ben_blueprint', __name__)
 def test_route():
   return "<h1>This is a test for customer Ben</h1>"
 
+# [Ben-1]
 # Get all the New York restaurants from the database
 @customer_ben_blueprint.route('/restaurants/new_york', methods=['GET'])
 def get_restaurants_newyork():
@@ -18,7 +19,11 @@ def get_restaurants_newyork():
 
     # use cursor to query the database for a list of New York restaurants
     cursor.execute(
-      '''SELECT Restaurants.name as \"Restaurant Name\", Restaurants_Locations.address as \"Address\", Restaurants_Locations.city as \"City\", Restaurants_Locations.state as \"State\", Restaurants_Locations.zip as \"Zip\"
+      '''SELECT Restaurants.name as \"Restaurant Name\", 
+      Restaurants_Locations.address as \"Address\", 
+      Restaurants_Locations.city as \"City\", 
+      Restaurants_Locations.state as \"State\", 
+      Restaurants_Locations.zip as \"Zip\"
       FROM Restaurants JOIN Restaurants_Locations ON Restaurants.restaurant_id = Restaurants_Locations.restaurant_id 
       WHERE Restaurants_Locations.city = \'New York\'''')
 
@@ -39,6 +44,7 @@ def get_restaurants_newyork():
 
     return jsonify(json_data)
 
+# [Ben-2]
 # Get all the New York fast food restaurants from the database
 @customer_ben_blueprint.route('/restaurants/new_york/fast_food', methods=['GET'])
 def get_restaurants_newyork_fastfood():
@@ -47,7 +53,11 @@ def get_restaurants_newyork_fastfood():
 
     # use cursor to query the database for a list of New York fast food restaurants
     cursor.execute(
-      '''SELECT Restaurants.name as \"Restaurant Name\", Restaurants_Locations.address as \"Address\", Restaurants_Locations.city as \"City\", Restaurants_Locations.state as \"State\", Restaurants_Locations.zip as \"Zip\"
+      '''SELECT Restaurants.name as \"Restaurant Name\", 
+      Restaurants_Locations.address as \"Address\", 
+      Restaurants_Locations.city as \"City\", 
+      Restaurants_Locations.state as \"State\", 
+      Restaurants_Locations.zip as \"Zip\"
       FROM Restaurants
       JOIN Restaurants_Locations ON Restaurants.restaurant_id = Restaurants_Locations.restaurant_id
       Join Categories ON Restaurants.category_id = Categories.category_id
@@ -70,6 +80,7 @@ def get_restaurants_newyork_fastfood():
 
     return jsonify(json_data)
   
+# [Ben-3]
 # Get all the New York discount food from the database
 @customer_ben_blueprint.route('/restaurants/new_york/discount_food', methods=['GET'])
 def get_restaurants_newyork_discountfood():
@@ -78,7 +89,9 @@ def get_restaurants_newyork_discountfood():
 
     # use cursor to query the database for a list of New York discount food
     cursor.execute(
-      '''SELECT Foods.name as \"Name\", (Foods.price - Foods.discount) as \"Discounted Price\", Restaurants.name as \"Restaurants Name\" 
+      '''SELECT Foods.name as \"Name\", 
+      (Foods.price - Foods.discount) as \"Discounted Price\", 
+      Restaurants.name as \"Restaurants Name\" 
       FROM Restaurants
       JOIN Restaurants_Locations ON Restaurants.restaurant_id = Restaurants_Locations.restaurant_id
       JOIN Menus ON Restaurants.restaurant_id = Menus.restaurant_id
