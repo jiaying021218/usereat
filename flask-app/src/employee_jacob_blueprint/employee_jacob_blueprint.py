@@ -5,15 +5,15 @@ from src import db
 
 employee_jacob_blueprint = Blueprint('employee_jacob_blueprint', __name__)
 
-# Test the orders route
+# Test the employee Jacob route
 @employee_jacob_blueprint.route('/', methods=['GET'])
 def test_route():
   return "<h1>This is a test for employee Jacob</h1>"
 
 # [Jacob-1]
 # Get all the orders for Burger Express at NY
-@employee_jacob_blueprint.route('/orders', methods=['GET'])
-def get_orders():
+@employee_jacob_blueprint.route('/restaurants/<int:restaurant_location_id>/orders', methods=['GET'])
+def get_orders(restaurant_location_id):
   # get a cursor object from the database
   cursor = db.get_db().cursor()
 
@@ -28,7 +28,7 @@ def get_orders():
     FROM Orders
     JOIN Order_Items ON Orders.order_id = Order_Items.order_id
     JOIN Foods ON Order_Items.food_id = Foods.food_id
-    WHERE Orders.restaurant_location_id = 11''')
+    WHERE Orders.restaurant_location_id = %s''', restaurant_location_id)
 
   # grab the column headers from the returned data
   column_headers = [x[0] for x in cursor.description]
@@ -49,8 +49,8 @@ def get_orders():
 
 # [Jacob-2]
 # Get all the co-workers' information
-@employee_jacob_blueprint.route('/employees', methods=['GET'])
-def get_employees():
+@employee_jacob_blueprint.route('/restaurants/<int:restaurant_id>/employees', methods=['GET'])
+def get_employees(restaurant_id):
   # get a cursor object from the database
   cursor = db.get_db().cursor()
 
@@ -63,7 +63,7 @@ def get_employees():
     Employees.phone as \"Phone\",
     Employees.title as \"Title\"
     FROM Employees
-    WHERE Employees.restaurant_id = 6 AND first_name != \'Jacob\'''')
+    WHERE Employees.restaurant_id = %s''', restaurant_id)
 
   # grab the column headers from the returned data
   column_headers = [x[0] for x in cursor.description]
