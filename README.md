@@ -15,5 +15,5 @@ This repo contains a boilerplate setup for spinning up 3 Docker containers:
 1. Build the images with `docker compose build`
 1. Start the containers with `docker compose up`.  To run in detached mode, run `docker compose up -d`. 
 
-![alt text](http://url/to/img.png)
+![alt text](https://github.com/jiaying021218/UserEat/blob/main/UserEat%20Relational%20Diagram.png)
 
