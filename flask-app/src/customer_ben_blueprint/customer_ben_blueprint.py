@@ -149,3 +149,41 @@ def get_burgerexpress_menu():
       json_data.append(dict(zip(column_headers, row)))
 
   return jsonify(json_data)
+
+# Get all orders placed by a customer
+@customer_ben_blueprint.route('/customer/<int:customer_id>/orders', methods=['GET'])
+def get_customer_orders(customer_id):
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+
+    # use cursor to query the database for a list of orders placed by the customer
+    cursor.execute(
+        '''SELECT Orders.order_id as "Order ID",
+        Orders.order_time as "Order Time",
+        Orders.order_status as "Order Status",
+        Orders.restaurant_location_id as "Restaurant Location ID",
+        Orders.restaurant_id as "Restaurant ID",
+        Orders.customer_address_id as "Customer Address ID",
+        Orders.ETA as "ETA",
+        Orders.price as "Total Price"
+        FROM Orders
+        WHERE Orders.customer_id = %s
+        ORDER BY Orders.order_time DESC''', (customer_id,))
+
+    # grab the column headers from the returned data
+    column_headers = [x[0] for x in cursor.description]
+
+    # create an empty dictionary object to use in
+    # putting column headers together with data
+    json_data = []
+
+    # fetch all the data from the cursor
+    theData = cursor.fetchall()
+
+    # for each of the rows, zip the data elements together with
+    # the column headers.
+    for row in theData:
+        json_data.append(dict(zip(column_headers, row)))
+
+    return jsonify(json_data)
+
