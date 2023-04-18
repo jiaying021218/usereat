@@ -174,8 +174,7 @@ def get_customer_id_orders(customer_id):
         Orders.restaurant_id as "Restaurant ID",
         Orders.customer_id as "Customer ID",
         Orders.customer_address_id as "Customer Address ID",
-        Orders.ETA as "ETA",
-        Orders.price as "Total Price"
+        Orders.ETA as "ETA"
         FROM Orders
         WHERE Orders.customer_id = %s
         ORDER BY Orders.order_time DESC''', (customer_id,))
