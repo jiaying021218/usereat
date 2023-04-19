@@ -1,14 +1,14 @@
--- This file is to bootstrap a database for the CS3200 project. 
+-- This file is to bootstrap a database for the CS3200 project.
 
 -- Create a new database.  You can change the name later.  You'll
--- need this name in the FLASK API file(s),  the AppSmith 
+-- need this name in the FLASK API file(s),  the AppSmith
 -- data source creation.
 DROP DATABASE IF EXISTS `usereat`;
 CREATE DATABASE `usereat`;
 
--- Via the Docker Compose file, a special user called webapp will 
--- be created in MySQL. We are going to grant that user 
--- all privilages to the new database we just created. 
+-- Via the Docker Compose file, a special user called webapp will
+-- be created in MySQL. We are going to grant that user
+-- all privilages to the new database we just created.
 GRANT ALL PRIVILEGES ON usereat.* TO 'webapp'@'%';
 FLUSH PRIVILEGES;
 
@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `Foods` (
 -- 'Canceled'
 -- -------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Orders` (
-  `order_id` integer PRIMARY KEY,
+  `order_id` integer PRIMARY KEY AUTO_INCREMENT,
   `customer_id` integer NOT NULL,
   `driver_id` integer DEFAULT NULL,
   `restaurant_location_id` integer NOT NULL,
@@ -114,8 +114,7 @@ CREATE TABLE IF NOT EXISTS `Orders` (
   `order_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `customer_address_id` integer NOT NULL,
   `order_status` varchar(255) NOT NULL DEFAULT 'Order Received',
-  `ETA` integer DEFAULT NULL,
-  `price` decimal NOT NULL
+  `ETA` integer DEFAULT NULL
 );
 
 -- -------------------------------------------------------
@@ -146,8 +145,7 @@ CREATE TABLE IF NOT EXISTS `Drivers` (
 CREATE TABLE IF NOT EXISTS `Payments` (
   `payment_id` integer PRIMARY KEY,
   `order_id` integer NOT NULL,
-  `card_id` integer NOT NULL,
-  `price` decimal NOT NULL
+  `card_id` integer NOT NULL
 );
 
 -- -------------------------------------------------------
@@ -241,7 +239,7 @@ INSERT INTO `Categories` (`category_id`, `name`) VALUES
 
 -- Customers
 INSERT INTO `Customers` (`customer_id`, `first_name`, `last_name`, `email`, `phone`) VALUES
-(1, 'John', 'Doe', 'john.doe@example.com', '555-123-4567'),
+(1, 'Ben', 'Doe', 'ben.doe@example.com', '555-123-4567'),
 (2, 'Jane', 'Doe', 'jane.doe@example.com', '555-123-7654'),
 (3, 'Michael', 'Smith', 'michael.smith@example.com', '555-321-9876'),
 (4, 'Emily', 'Jones', 'emily.jones@example.com', '555-321-7896'),
@@ -287,7 +285,7 @@ INSERT INTO `Customers_Locations` (`customer_address_id`, `customer_id`, `addres
 
 -- Cards
 INSERT INTO `Cards` (`card_id`, `customer_id`, `type`, `cardholder`, `company`, `card_number`, `expiration_date`, `CVV`) VALUES
-(1, 1, 'Visa', 'John Doe', 'Bank of America', '4111111111111111', '2025-01-31', 123),
+(1, 1, 'Visa', 'Ben Doe', 'Bank of America', '4111111111111111', '2025-01-31', 123),
 (2, 2, 'MasterCard', 'Jane Doe', 'Chase', '5500000000000004', '2024-09-30', 234),
 (3, 3, 'Visa', 'Michael Smith', 'Wells Fargo', '4007000000027', '2025-05-31', 345),
 (4, 4, 'MasterCard', 'Emily Jones', 'Citibank', '5555555555554444', '2024-12-31', 456),
@@ -442,55 +440,58 @@ INSERT INTO `Employees` (`employee_id`, `restaurant_id`, `first_name`, `last_nam
 (30, 8, 'Sophia', 'Bennett', 27, 'sophia.bennett@example.com', '555-4014', 'Chief');
 
 -- Orders
-INSERT INTO `Orders` (`order_id`, `customer_id`, `driver_id`, `restaurant_location_id`, `restaurant_id`, `order_time`, `customer_address_id`, `order_status`, `ETA`, `price`) VALUES
-(1, 1, 1, 1, 1, '2023-04-13 10:00:00', 1, 'Delivered', 30, 25.00),
-(2, 2, 2, 3, 2, '2023-04-13 10:30:00', 2, 'In Delivery', 20, 19.99),
-(3, 3, 3, 5, 3, '2023-04-13 11:00:00', 3, 'Waiting For Pickup', 25, 30.50),
-(4, 4, 4, 7, 4, '2023-04-13 11:30:00', 4, 'Received', 35, 18.00),
-(5, 5, 5, 9, 5, '2023-04-13 12:00:00', 5, 'Delivered', 45, 22.50),
-(6, 6, 1, 11, 6, '2023-04-13 12:30:00', 6, 'Canceled', NULL, 16.00),
-(7, 7, 2, 13, 7, '2023-04-13 13:00:00', 7, 'Delivered', 40, 24.99),
-(8, 8, 3, 15, 8, '2023-04-13 13:30:00', 8, 'In Delivery', 30, 28.00),
-(9, 9, 4, 17, 9, '2023-04-13 14:00:00', 9, 'Waiting For Pickup', 20, 20.50),
-(10, 10, 5, 19, 10, '2023-04-13 14:30:00', 10, 'Received', 25, 33.00),
-(11, 11, 1, 1, 1, '2023-04-13 15:00:00', 11, 'Delivered', 30, 26.50),
-(12, 12, 2, 3, 2, '2023-04-13 15:30:00', 12, 'In Delivery', 20, 18.99),
-(13, 13, 3, 5, 3, '2023-04-13 16:00:00', 13, 'Waiting For Pickup', 25, 29.50),
-(14, 14, 4, 7, 4, '2023-04-13 16:30:00', 14, 'Received', 35, 19.00),
-(15, 15, 5, 9, 5, '2023-04-13 17:00:00', 15, 'Delivered', 45, 23.50),
-(16, 16, 1, 11, 6, '2023-04-13 17:30:00', 16, 'Canceled', NULL, 17.00),
-(17, 17, 2, 13, 7, '2023-04-13 18:00:00', 17, 'Delivered', 40, 25.99),
-(18, 18, 3, 15, 8, '2023-04-13 18:30:00', 18, 'In Delivery', 30, 29.00),
-(19, 19, 4, 17, 9, '2023-04-13 19:00:00', 19, 'Waiting For Pickup', 20, 21.50),
-(20, 20, 5, 19, 10, '2023-04-13 19:30:00', 20, 'Received', 25, 34.00);
+INSERT INTO `Orders` (`order_id`, `customer_id`, `driver_id`, `restaurant_location_id`, `restaurant_id`, `order_time`, `customer_address_id`, `order_status`, `ETA`) VALUES
+(1, 1, 1, 11, 6, '2023-04-13 10:00:00', 1, 'Delivered', 30),
+(2, 2, 2, 3, 2, '2023-04-13 10:30:00', 2, 'In Delivery', 20),
+(3, 3, 3, 5, 3, '2023-04-13 11:00:00', 3, 'Waiting For Pickup', 25),
+(4, 4, 4, 7, 4, '2023-04-13 11:30:00', 4, 'Received', 35),
+(5, 5, 5, 9, 5, '2023-04-13 12:00:00', 5, 'Delivered', 45),
+(6, 6, 1, 11, 6, '2023-04-13 12:30:00', 6, 'Canceled', NULL),
+(7, 7, 2, 13, 7, '2023-04-13 13:00:00', 7, 'Delivered', 40),
+(8, 8, 3, 15, 8, '2023-04-13 13:30:00', 8, 'In Delivery', 30),
+(9, 9, 4, 17, 9, '2023-04-13 14:00:00', 9, 'Waiting For Pickup', 20),
+(10, 10, 5, 19, 10, '2023-04-13 14:30:00', 10, 'Received', 25),
+(11, 11, 1, 1, 1, '2023-04-13 15:00:00', 11, 'Delivered', 30),
+(12, 12, 2, 3, 2, '2023-04-13 15:30:00', 12, 'In Delivery', 20),
+(13, 13, 3, 5, 3, '2023-04-13 16:00:00', 13, 'Waiting For Pickup', 25),
+(14, 14, 4, 7, 4, '2023-04-13 16:30:00', 14, 'Received', 35),
+(15, 15, 5, 9, 5, '2023-04-13 17:00:00', 15, 'Delivered', 45),
+(16, 16, 1, 11, 6, '2023-04-13 17:30:00', 16, 'Canceled', NULL),
+(17, 17, 2, 13, 7, '2023-04-13 18:00:00', 17, 'Delivered', 40),
+(18, 18, 3, 15, 8, '2023-04-13 18:30:00', 18, 'In Delivery', 30),
+(19, 19, 4, 17, 9, '2023-04-13 19:00:00', 19, 'Waiting For Pickup', 20),
+(20, 20, 5, 19, 10, '2023-04-13 19:30:00', 20, 'Received', 25),
+(21, 1, 2, 11, 6, '2023-04-11 10:00:00', 1, 'Cancelled', NULL),
+(22, 1, 3, 1, 1, '2023-04-12 10:00:00', 1, 'Delivered', 30);
 
 -- Payments
-INSERT INTO `Payments` (`payment_id`, `order_id`, `card_id`, `price`) VALUES
-(1, 1, 1, 15.99),
-(2, 2, 2, 8.99),
-(3, 3, 3, 12.99),
-(4, 4, 4, 5.99),
-(5, 5, 5, 9.99),
-(6, 6, 6, 14.99),
-(7, 7, 7, 7.99),
-(8, 8, 8, 11.99),
-(9, 9, 9, 4.99),
-(10, 10, 10, 10.99),
-(11, 11, 11, 19.99),
-(12, 12, 12, 6.99),
-(13, 13, 13, 15.99),
-(14, 14, 14, 8.99),
-(15, 15, 15, 12.99),
-(16, 16, 16, 5.99),
-(17, 17, 17, 9.99),
-(18, 18, 18, 14.99),
-(19, 19, 19, 8.29),
-(20, 20, 20, 7.99);
-
+INSERT INTO `Payments` (`payment_id`, `order_id`, `card_id`) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 3),
+(4, 4, 4),
+(5, 5, 5),
+(6, 6, 6),
+(7, 7, 7),
+(8, 8, 8),
+(9, 9, 9),
+(10, 10, 10),
+(11, 11, 11),
+(12, 12, 12),
+(13, 13, 13),
+(14, 14, 14),
+(15, 15, 15),
+(16, 16, 16),
+(17, 17, 17),
+(18, 18, 18),
+(19, 19, 19),
+(20, 20, 20);
 
 -- Order_Items
 INSERT INTO `Order_Items` (`order_item_id`, `order_id`, `food_id`, `quantity`, `special_instructions`) VALUES
-(1, 1, 1, 1, NULL),
+(1, 1, 23, 1, NULL),
+(21, 21, 22, 1, 'No sauce'),
+(22, 22, 1, 1, NULL),
 (2, 1, 2, 1, 'Extra cheese'),
 (3, 2, 3, 2, 'No onions'),
 (4, 2, 4, 1, NULL),
