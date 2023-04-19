@@ -2,7 +2,6 @@ from flask import Blueprint, request, jsonify, make_response
 import json
 from src import db
 
-
 customer_ben_blueprint = Blueprint('customer_ben_blueprint', __name__)
 
 # Test the customer Ben route
@@ -11,7 +10,7 @@ def test_route():
   return "<h1>This is a test for customer Ben</h1>"
 
 # [Ben-1]
-# Get all the New York restaurants from the database
+# Get all the New York restaurants
 @customer_ben_blueprint.route('/restaurants/new_york', methods=['GET'])
 def get_restaurants_newyork():
   # get a cursor object from the database
@@ -49,9 +48,9 @@ def get_restaurants_newyork():
   return jsonify(json_data)
 
 # [Ben-2]
-# Get all the New York restaurants from the database that belongs to the given category
+# Get all the New York restaurants that belongs to the given category
 @customer_ben_blueprint.route('/restaurants/new_york/<int:category_id>', methods=['GET'])
-def get_restaurants_newyork_category(category_id):
+def get_restaurants_newyork_categoryid(category_id):
   # get a cursor object from the database
   cursor = db.get_db().cursor()
 
@@ -86,7 +85,7 @@ def get_restaurants_newyork_category(category_id):
   return jsonify(json_data)
   
 # [Ben-3]
-# Get all the New York discount food from the database
+# Get all the New York discount food
 @customer_ben_blueprint.route('/restaurants/new_york/discount_food', methods=['GET'])
 def get_restaurants_newyork_discountfood():
   # get a cursor object from the database
@@ -122,11 +121,10 @@ def get_restaurants_newyork_discountfood():
 
   return jsonify(json_data)
 
-
 # [Ben-4]
-# Get the menu of Burger Express from the database
+# Get the menu of Burger Express
 @customer_ben_blueprint.route('/menus/<int:menu_id>', methods=['GET'])
-def get_menu_id(menu_id):
+def get_menus_menuid(menu_id):
   # get a cursor object from the database
   cursor = db.get_db().cursor()
 
@@ -160,7 +158,7 @@ def get_menu_id(menu_id):
 # [Ben-5]
 # Get all orders placed by a customer
 @customer_ben_blueprint.route('/customers/<int:customer_id>/orders', methods=['GET'])
-def get_customer_id_orders(customer_id):
+def get_customerid_orders(customer_id):
   # get a cursor object from the database
   cursor = db.get_db().cursor()
 
