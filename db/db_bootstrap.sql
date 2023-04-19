@@ -461,7 +461,7 @@ INSERT INTO `Orders` (`order_id`, `customer_id`, `driver_id`, `restaurant_locati
 (18, 18, 3, 15, 8, '2023-04-13 18:30:00', 18, 'In Delivery', 30),
 (19, 19, 4, 17, 9, '2023-04-13 19:00:00', 19, 'Waiting For Pickup', 20),
 (20, 20, 5, 19, 10, '2023-04-13 19:30:00', 20, 'Received', 25),
-(21, 1, 2, 11, 6, '2023-04-11 10:00:00', 1, 'Canceled', NULL),
+(21, 1, 2, 11, 6, '2023-04-11 10:00:00', 1, 'Cancelled', NULL),
 (22, 1, 3, 1, 1, '2023-04-12 10:00:00', 1, 'Delivered', 30);
 
 -- Payments
