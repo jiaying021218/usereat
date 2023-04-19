@@ -2,6 +2,15 @@ from flask import Blueprint, request, jsonify, make_response
 import json
 from src import db
 
+# Jacob Personas
+# [1] As an employee, Jacob needs to see all the orders placed for Burger Express orders by the earliest.
+# [2] Jacob wants to see all of his co-workers’ information, so he can reach out to them when needed.
+# [3] As an employee, Jacob needs to be able to update the order to “Ready for Pickup” when needed.
+# [4] Jacob needs to add new food to the menu sometimes
+# [5] Promotion sometimes happens for certain foods, so Jacob needs to update the discount.
+# [6] Jacob needs to delete food that is no longer available.
+# [7] Jacob just recently changed his email, so he needs to update it in the system.
+# [8] One of Jacob’s co-workers is fired, so he needs to remove the co-worker from the system.
 
 employee_jacob_blueprint = Blueprint('employee_jacob_blueprint', __name__)
 
