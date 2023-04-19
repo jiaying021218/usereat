@@ -172,8 +172,12 @@ def get_customerid_orders(customer_id):
       Orders.restaurant_id as "Restaurant ID",
       Orders.customer_id as "Customer ID",
       Orders.customer_address_id as "Customer Address ID",
-      Orders.ETA as "ETA"
+      Orders.ETA as "ETA",
+      Foods.name as "Food Name",
+      Order_Items.quantity as "Quantity"
       FROM Orders
+      JOIN Order_Items ON Orders.order_id = Order_Items.order_id
+      JOIN Foods ON Order_Items.food_id = Foods.food_id
       WHERE Orders.customer_id = %s
       ORDER BY Orders.order_time DESC''', (customer_id,))
 
@@ -203,13 +207,25 @@ def place_order():
 
   rest_id = req_data['restaurant_id']
   rest_location_id = req_data['restaurant_location_id']
+  fd_id = req_data['food_id']
+  quan = req_data['quantity']
+  spec = req_data['special_instruction']
   
   # Insert order data into the Orders table
-  insert_stmt = 'INSERT INTO Orders (customer_id, restaurant_location_id, restaurant_id, customer_address_id) VALUES (1, ' + str(rest_location_id) + ', '+ str(rest_id) +', 1)'
+  insert_order_stmt = 'INSERT INTO Orders (customer_id, restaurant_location_id, restaurant_id, customer_address_id) VALUES (1, ' + str(rest_location_id) + ', '+ str(rest_id) +', 1)'
 
   # Execute the queries
   cursor = db.get_db().cursor()
-  cursor.execute(insert_stmt)
+  cursor.execute(insert_order_stmt)
+
+  db.get_db().commit()
+
+  order_id = cursor.lastrowid
+
+  insert_order_item_stmt = 'INSERT INTO Order_Items (order_id, food_id, quantity, special_instructions) VALUES (' + str(order_id) + ', ' + str(fd_id) + ', ' + str(quan) + ', "' + spec +'")'
+
+  cursor = db.get_db().cursor()
+  cursor.execute(insert_order_item_stmt)
 
   # Commit the changes to the database
   db.get_db().commit()
