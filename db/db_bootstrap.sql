@@ -24,7 +24,7 @@ USE `usereat`;
 -- 'Cashier'
 -- -------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Employees` (
-  `employee_id` integer PRIMARY KEY,
+  `employee_id` integer PRIMARY KEY AUTO_INCREMENT,
   `restaurant_id` integer NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `Orders` (
 -- Table: Orders_Items
 -- -------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Order_Items` (
-  `order_item_id` integer PRIMARY KEY,
+  `order_item_id` integer PRIMARY KEY AUTO_INCREMENT,
   `order_id` integer NOT NULL,
   `food_id` integer NOT NULL,
   `quantity` integer NOT NULL DEFAULT 1,
