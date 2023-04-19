@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `Employees` (
 --  Table: Restaurants
 -- -------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Restaurants` (
-  `restaurant_id` integer PRIMARY KEY,
+  `restaurant_id` integer PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `phone` varchar(255) UNIQUE NOT NULL,
   `email` varchar(255) UNIQUE NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `Restaurants` (
 -- Table: Restaurants_Locations
 -- -------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Restaurants_Locations` (
-  `restaurant_location_id` integer PRIMARY KEY,
+  `restaurant_location_id` integer PRIMARY KEY AUTO_INCREMENT,
   `restaurant_id` integer NOT NULL,
   `address` varchar(255) NOT NULL,
   `city` varchar(255) NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `Restaurants_Locations` (
 -- 'American Food'
 -- -------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Categories` (
-  `category_id` integer PRIMARY KEY,
+  `category_id` integer PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(255) NOT NULL
 );
 
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `Categories` (
 -- 'Both'
 -- -------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Menus` (
-  `menu_id` integer PRIMARY KEY,
+  `menu_id` integer PRIMARY KEY AUTO_INCREMENT,
   `restaurant_id` integer NOT NULL,
   `name` varchar(255) DEFAULT NULL
 );
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `Order_Items` (
 -- Table: Drivers
 -- -------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Drivers` (
-  `driver_id` integer PRIMARY KEY,
+  `driver_id` integer PRIMARY KEY AUTO_INCREMENT,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) UNIQUE NOT NULL,
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `Drivers` (
 -- Table: Payments
 -- -------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Payments` (
-  `payment_id` integer PRIMARY KEY,
+  `payment_id` integer PRIMARY KEY AUTO_INCREMENT,
   `order_id` integer NOT NULL,
   `card_id` integer NOT NULL
 );
@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `Payments` (
 -- 'MasterCard'
 -- -------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Cards` (
-  `card_id` integer PRIMARY KEY,
+  `card_id` integer PRIMARY KEY AUTO_INCREMENT,
   `customer_id` integer NOT NULL,
   `type` varchar(255) NOT NULL,
   `cardholder` varchar(255) NOT NULL,
@@ -169,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `Cards` (
 -- Table: Customers
 -- -------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Customers` (
-  `customer_id` integer PRIMARY KEY,
+  `customer_id` integer PRIMARY KEY AUTO_INCREMENT,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) UNIQUE NOT NULL,
@@ -180,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `Customers` (
 -- Table: Customers_Locations
 -- -------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Customers_Locations` (
-  `customer_address_id` integer PRIMARY KEY,
+  `customer_address_id` integer PRIMARY KEY AUTO_INCREMENT,
   `customer_id` integer NOT NULL,
   `address` varchar(255) NOT NULL,
   `city` varchar(255) NOT NULL,
