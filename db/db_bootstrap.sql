@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `Menus` (
 -- Table: Foods
 -- -------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Foods` (
-  `food_id` integer PRIMARY KEY,
+  `food_id` integer PRIMARY KEY AUTO_INCREMENT,
   `menu_id` integer NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` text DEFAULT NULL,
