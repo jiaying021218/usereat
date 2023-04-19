@@ -232,3 +232,63 @@ def place_order():
 
   # Return a success message and the order_id
   return "Success"
+
+# [Ben-7]
+# Cancel an order for a customer
+@customer_ben_blueprint.route('/cancel_order', methods=['PUT'])
+def cancel_order():
+  # Access JSON data from the request object
+  req_data = request.get_json()
+
+  order_id = req_data['order_id']
+
+  # Check if the order exists
+  cursor = db.get_db().cursor()
+  cursor.execute('SELECT * FROM Orders WHERE order_id = %s', order_id)
+  order = cursor.fetchone()
+
+  if order is None:
+      return "No Order Found"
+
+  # Update the order_status to 'Canceled'
+  update_order_stmt = 'UPDATE Orders SET order_status = "Canceled" WHERE order_id = ' + str(order_id)
+  cursor.execute(update_order_stmt)
+
+  # Commit the changes to the database
+  db.get_db().commit()
+
+  # Return a success message
+  return "Canceled Successfully"
+
+
+# [Ben-8]
+# Delete an order for a customer
+@customer_ben_blueprint.route('/delete_order', methods=['DELETE'])
+def delete_order():
+  # Access JSON data from the request object
+  req_data = request.get_json()
+
+  order_id = req_data['delete_order_id']
+
+  # Execute the queries
+  cursor = db.get_db().cursor()
+  # Check if the order exists
+  cursor.execute('SELECT * FROM Orders WHERE order_id = %s', order_id)
+  order = cursor.fetchone()
+
+  if order is None:
+      return "No Order Found"
+
+  # Delete the order items associated with the order
+  delete_order_items_stmt = 'DELETE FROM Order_Items WHERE order_id = ' + str(order_id)
+  cursor.execute(delete_order_items_stmt)
+
+  # Delete the order from the Orders table
+  delete_order_stmt = 'DELETE FROM Orders WHERE order_id = ' + str(order_id)
+  cursor.execute(delete_order_stmt)
+
+  # Commit the changes to the database
+  db.get_db().commit()
+
+  # Return a success message
+  return "Deleted Successfully"
