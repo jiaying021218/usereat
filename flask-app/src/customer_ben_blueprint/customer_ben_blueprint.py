@@ -2,6 +2,16 @@ from flask import Blueprint, request, jsonify, make_response
 import json
 from src import db
 
+# Ben Personas
+# [1] As a user, Ben wants to see all restaurants available located in New York.
+# [2] Since Ben has classes both in the morning and afternoon, he likes to order fast food for lunch since it usually has relatively faster delivery time, so he sometimes likes to only see the fast food restaurants located in New York.
+# [3] Due to the fact that Ben currently has no income and is a student, he likes to see the foods with promotions in the restaurants that are located in New York.
+# [4] Ben needs to see the menu first in order to place an order.
+# [5] He also needs to be able to check the order status and see the past orders.
+# [6] As a user, Ben wants to place an order from a restaurant  with the food that he wants.
+# [7] Ben sometimes needs to cancel an order due to some unforeseen circumstances.
+# [8] After canceling the order, Ben would like to delete the order, so he does not see it in his order history anymore.
+
 customer_ben_blueprint = Blueprint('customer_ben_blueprint', __name__)
 
 # Test the customer Ben route
