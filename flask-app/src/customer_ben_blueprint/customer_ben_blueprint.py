@@ -132,7 +132,9 @@ def get_menus_menuid(menu_id):
   cursor.execute(
     '''SELECT 
     Foods.name as "Name", 
-    Foods.price as "Price"
+    Foods.price as "Price",
+    Foods.discount as "Discount",
+    Foods.food_id as "ID"
     FROM Restaurants
     JOIN Menus ON Restaurants.restaurant_id = Menus.restaurant_id
     JOIN Foods ON Menus.menu_id = Foods.menu_id
@@ -258,8 +260,7 @@ def cancel_order():
   db.get_db().commit()
 
   # Return a success message
-  return "Canceled Successfully"
-
+  return "Success"
 
 # [Ben-8]
 # Delete an order for a customer
@@ -279,10 +280,6 @@ def delete_order():
   if order is None:
       return "No Order Found"
 
-  # Delete the payment records associated with the order
-  delete_payment_stmt = 'DELETE FROM Payments WHERE order_id = ' + str(order_id)
-  cursor.execute(delete_payment_stmt)
-    
   # Delete the order items associated with the order
   delete_order_items_stmt = 'DELETE FROM Order_Items WHERE order_id = ' + str(order_id)
   cursor.execute(delete_order_items_stmt)
@@ -295,4 +292,4 @@ def delete_order():
   db.get_db().commit()
 
   # Return a success message
-  return "Deleted Successfully"
+  return "Success"
