@@ -57,12 +57,11 @@ def get_employees(restaurant_id):
   # use cursor to query the database for a list of co-workers' information
   cursor.execute(
     '''SELECT
-    Employees.first_name as "First Name",
-    Employees.last_name as "Last Name",
-    Employees.email as "Email",
-    Employees.phone as "Phone",
-    Employees.title as "Title",
-    Employees.employee_id as "ID"
+    Employees.first_name as \"First Name\",
+    Employees.last_name as \"Last Name\",
+    Employees.email as \"Email\",
+    Employees.phone as \"Phone\",
+    Employees.title as \"Title\"
     FROM Employees
     WHERE Employees.restaurant_id = %s''', restaurant_id)
 
@@ -83,154 +82,176 @@ def get_employees(restaurant_id):
 
   return jsonify(json_data)
 
-# [Jacob-3]
+
 # Update order status
-@employee_jacob_blueprint.route('/update_order', methods=['PUT'])
-def update_order():
-  # Access JSON data from the request object
-  req_data = request.get_json()
+@employee_jacob_blueprint.route('/orders/<int:order_id>/status', methods=['PUT'])
+def update_order_status(order_id):
+    # get the new status for updating the order
+    new_status = request.json.get("order_status", None)
 
-  order_id = req_data['update_order_id']
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
 
-  # Check if the order exists
-  cursor = db.get_db().cursor()
-  cursor.execute('SELECT * FROM Orders WHERE order_id = %s', order_id)
-  order = cursor.fetchone()
+    # construct the update statement
+    update_stmt = 'UPDATE Orders SET order_status = "' + new_status + '" WHERE order_id = ' + str(order_id)
 
-  if order is None:
-      return "No Order Found"
+    # execute the query
+    cursor.execute(update_stmt)
 
-  # Update the order_status to 'Ready for Pickup'
-  update_order_stmt = 'UPDATE Orders SET order_status = "Ready for Pickup" WHERE order_id = ' + str(order_id)
-  cursor.execute(update_order_stmt)
+    # commit the changes to the database
+    db.get_db().commit()
 
-  # Commit the changes to the database
-  db.get_db().commit()
+    # return a success message and the updated order status
+    return "Success"
 
-  # Return a success message
-  return "Update Successfully"
 
-# [Jacob-4]
+
 # Add new food to the menu
-@employee_jacob_blueprint.route('/add_food', methods=['POST'])
-def add_food():
-  # Access JSON data from the request object
-  req_data = request.get_json()
+@employee_jacob_blueprint.route('/menus/<int:menu_id>/foods', methods=['POST'])
+def add_food(menu_id):
+    # get the new food details from the request
+    name = request.json.get("name", None)
+    description = request.json.get("description", None)
+    price = request.json.get("price", None)
+    discount = request.json.get("discount", None)
 
-  name = req_data['add_name']
-  description = req_data['add_description']
-  price = req_data['add_price']
-  discount = req_data['add_discount']
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
 
-  insert_stmt = 'INSERT INTO Foods (menu_id, name, description, price, discount) VALUES (9, "' + name + '", "' + description + '", ' + str(price) + ', ' + str(discount) + ')'
+    # construct the insert statement
+    insert_stmt = 'INSERT INTO Foods (menu_id, name, description, price, discount) VALUES (' + str(menu_id) + ', "' + name + '", "' + description + '", ' + str(price) + ', ' + str(discount) + ')'
 
-  # Execute the queries
-  cursor = db.get_db().cursor()
-  cursor.execute(insert_stmt)
+    # execute the query
+    cursor.execute(insert_stmt)
 
-  db.get_db().commit()
+    # commit the changes to the database
+    db.get_db().commit()
 
-  # Return a success message and the order_id
-  return "Success"
+    # return a success message
+    return "Food item added successfully"
 
 
-# [Jacob-5]
-# Update food discount in the menu
-@employee_jacob_blueprint.route('/update_food', methods=['PUT'])
-def update_food():
-  # Access JSON data from the request object
-  req_data = request.get_json()
+# Update food in the menu
+@employee_jacob_blueprint.route('/foods/<int:food_id>', methods=['PUT'])
+def update_food(food_id):
+    # get the updated food details from the request
+    name = request.json.get("name", None)
+    description = request.json.get("description", None)
+    price = request.json.get("price", None)
+    discount = request.json.get("discount", None)
 
-  food_id = req_data['update_food_id']
-  discount = req_data['update_discount']
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
 
-  # Check if the food exists
-  cursor = db.get_db().cursor()
-  cursor.execute('SELECT * FROM Foods WHERE food_id = %s', food_id)
-  food = cursor.fetchone()
+    # construct the update statement
+    update_stmt = 'UPDATE Foods SET name = "' + name + '", description = "' + description + '", price = ' + str(price) + ', discount = ' + str(discount) + ' WHERE food_id = ' + str(food_id)
 
-  if food is None:
-      return "No Food Found"
+    # execute the query
+    cursor.execute(update_stmt)
 
-  # Update the discount
-  update_food_stmt = 'UPDATE Foods SET discount = ' + str(discount) + ' WHERE food_id = ' + str(food_id)
-  cursor.execute(update_food_stmt)
+    # commit the changes to the database
+    db.get_db().commit()
 
-  # Commit the changes to the database
-  db.get_db().commit()
+    # return a success message
+    return "Success"
 
-  # Return a success message
-  return "Change Successfully"
 
-# [Jacob-6]
 # Delete food in the menu
-@employee_jacob_blueprint.route('/delete_food', methods=['DELETE'])
-def delete_food():
-  # Access JSON data from the request object
-  req_data = request.get_json()
+@employee_jacob_blueprint.route('/foods/<int:food_id>', methods=['DELETE'])
+def delete_food(food_id):
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
 
-  food_id = req_data['delete_food_id']
+    # delete the associated order items
+    delete_order_items_stmt = 'DELETE FROM Order_Items WHERE food_id = ' + str(food_id)
 
-  # Execute the queries
-  cursor = db.get_db().cursor()
-  # Check if the order exists
-  cursor.execute('SELECT * FROM Foods WHERE food_id = %s', food_id)
-  food = cursor.fetchone()
+    # execute the query
+    cursor.execute(delete_order_items_stmt)
 
-  if food is None:
-      return "No Food Found"
+    # construct the delete statement
+    delete_stmt = 'DELETE FROM Foods WHERE food_id = ' + str(food_id)
 
-  # Delete the order items associated with the order
-  delete_food_stmt = 'DELETE FROM Foods WHERE food_id = ' + str(food_id)
-  cursor.execute(delete_food_stmt)
+    # execute the query
+    cursor.execute(delete_stmt)
 
-  # Commit the changes to the database
-  db.get_db().commit()
+    # commit the changes to the database
+    db.get_db().commit()
 
-  # Return a success message
-  return "Deleted Successfully"
+    # return a success message
+    return "Success"
 
-# [Jacob-7]
-# Update employee email information
-@employee_jacob_blueprint.route('/update_employee', methods=['PUT'])
-def update_employee():
-  req_data = request.get_json()
 
-  employee_id = req_data['update_employee_id']
-  email = req_data['update_email']
 
-  # get a cursor object from the database
-  cursor = db.get_db().cursor()
-  # construct the update statement
-  update_stmt = 'UPDATE Employees SET email = "' + email + '" WHERE employee_id = ' + str(employee_id)
+# Update employee information
+@employee_jacob_blueprint.route('/employees/<int:employee_id>', methods=['PUT'])
+def update_employee(employee_id):
+    # get the updated employee details from the request
+    first_name = request.json.get("first_name", None)
+    last_name = request.json.get("last_name", None)
+    email = request.json.get("email", None)
+    phone = request.json.get("phone", None)
+    title = request.json.get("title", None)
+    manager_id = request.json.get("manager_id", None)
 
-  # execute the query
-  cursor.execute(update_stmt)
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
 
-  # commit the changes to the database
-  db.get_db().commit()
+    # construct the update statement
+    update_stmt = f'UPDATE Employees SET first_name = "{first_name}", last_name = "{last_name}", email = "{email}", phone = "{phone}", title = "{title}", manager_id = {manager_id} WHERE employee_id = {employee_id}'
 
-  # return a success message
-  return "Success"
+    # execute the query
+    cursor.execute(update_stmt)
 
-# [Jacob-8]
+    # commit the changes to the database
+    db.get_db().commit()
+
+    # return a success message
+    return "Success"
+
+
+# Add a new employee
+@employee_jacob_blueprint.route('/restaurants/<int:restaurant_id>/employees', methods=['POST'])
+def add_employee(restaurant_id):
+    # get the new employee details from the request
+    first_name = request.json.get("first_name", None)
+    last_name = request.json.get("last_name", None)
+    email = request.json.get("email", None)
+    phone = request.json.get("phone", None)
+    title = request.json.get("title", None)
+    manager_id = request.json.get("manager_id", None)
+
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+
+    # construct the insert statement
+    insert_stmt = f'INSERT INTO Employees (restaurant_id, first_name, last_name, email, phone, title, manager_id) VALUES ({restaurant_id}, "{first_name}", "{last_name}", "{email}", "{phone}", "{title}", {manager_id})'
+
+    # execute the query
+    cursor.execute(insert_stmt)
+
+    # commit the changes to the database
+    db.get_db().commit()
+
+    # return a success message
+    return "Success"
+
+
 # Delete an employee
-@employee_jacob_blueprint.route('/delete_employee', methods=['DELETE'])
-def delete_employee():
-  req_data = request.get_json()
+@employee_jacob_blueprint.route('/employees/<int:employee_id>', methods=['DELETE'])
+def delete_employee(employee_id):
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
 
-  employee_id = req_data['delete_employee_id']
+    # construct the delete statement
+    delete_stmt = 'DELETE FROM Employees WHERE employee_id = ' + str(employee_id)
 
-  # get a cursor object from the database
-  cursor = db.get_db().cursor()
-  # construct the delete statement
-  delete_stmt = 'DELETE FROM Employees WHERE employee_id = ' + str(employee_id)
+    # execute the query
+    cursor.execute(delete_stmt)
 
-  # execute the query
-  cursor.execute(delete_stmt)
+    # commit the changes to the database
+    db.get_db().commit()
 
-  # commit the changes to the database
-  db.get_db().commit()
+    # return a success message
+    return "Success"
 
-  # return a success message
-  return "Delete Success"
+
