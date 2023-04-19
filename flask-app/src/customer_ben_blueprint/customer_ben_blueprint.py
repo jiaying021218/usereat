@@ -260,7 +260,7 @@ def cancel_order():
   db.get_db().commit()
 
   # Return a success message
-  return "Success"
+  return "Canceled Successfully"
 
 # [Ben-8]
 # Delete an order for a customer
@@ -292,4 +292,4 @@ def delete_order():
   db.get_db().commit()
 
   # Return a success message
-  return "Success"
+  return "Deleted Successfully"
