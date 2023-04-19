@@ -199,24 +199,17 @@ def get_customerid_orders(customer_id):
 @customer_ben_blueprint.route('/place_order', methods=['POST'])
 def place_order():
   # Access JSON data from the request object
-  current_app.logger.info('Processing order data')
   req_data = request.get_json()
-  current_app.logger.info(req_data)
 
-  restaurant_location_id = req_data['restaurant_location_id']
-  restaurant_id = req_data['restaurant_id']
-
+  rest_id = req_data['restaurant_id']
+  rest_location_id = req_data['restaurant_location_id']
+  
   # Insert order data into the Orders table
-  insert_order_stmt = 'INSERT INTO Orders (restaurant_location_id, restaurant_id) VALUES '
-  insert_order_stmt += '(1, ' + str(restaurant_location_id) + ', ' + str(restaurant_id) + ', 1)'
-
-  current_app.logger.info(insert_order_stmt)
+  insert_stmt = 'INSERT INTO Orders (customer_id, restaurant_location_id, restaurant_id, customer_address_id) VALUES (1, ' + str(rest_location_id) + ', '+ str(rest_id) +', 1)'
 
   # Execute the queries
   cursor = db.get_db().cursor()
-  cursor.execute(insert_order_stmt)
-  # Get the order_id of the inserted order
-  order_id = cursor.lastrowid
+  cursor.execute(insert_stmt)
 
   # Commit the changes to the database
   db.get_db().commit()
