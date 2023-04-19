@@ -13,7 +13,7 @@ def test_route():
 # [Jacob-1]
 # Get all the orders for Burger Express at NY
 @employee_jacob_blueprint.route('/restaurants/<int:restaurant_location_id>/orders', methods=['GET'])
-def get_orders(restaurant_location_id):
+def get_restaurants_id_orders(restaurant_location_id):
   # get a cursor object from the database
   cursor = db.get_db().cursor()
 
@@ -50,7 +50,7 @@ def get_orders(restaurant_location_id):
 # [Jacob-2]
 # Get all the co-workers' information
 @employee_jacob_blueprint.route('/restaurants/<int:restaurant_id>/employees', methods=['GET'])
-def get_employees(restaurant_id):
+def get_restaurants_id_employees(restaurant_id):
   # get a cursor object from the database
   cursor = db.get_db().cursor()
 
