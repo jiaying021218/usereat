@@ -21,5 +21,5 @@ VIDEO LINK: https://drive.google.com/file/d/1jX79YFrSTpx4WJlnRa0w93fEqY3t9rvb/vi
 
 
 
-![alt text](https://github.com/jiaying021218/UserEat/blob/main/UserEat%20Relational%20Diagram.png)
+![alt text](https://github.com/jiaying021218/UserEat/blob/main/UserEat%20Diagram.png)
 
