@@ -1,6 +1,7 @@
 # UserEat
 
 UserEat is an online food delievery application like UberEat or DoorDash
+Team member: Jiaying Zheng, Yanxing Wu, Zonghao Han
 - Outlined major features for three archetype users – customer, drivers, and restaurants employees
 - Developed a conceptual model that incorporates/integrates the archetypical users’ views of the data
 - Iterated on the conceptual model and developed a logical model for a relational database
