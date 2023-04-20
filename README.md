@@ -1,25 +1,23 @@
-# MySQL + Flask Boilerplate Project
+# UserEat
+
+UserEat is an online food delievery application like UberEat or DoorDash
+- Outlined major features for three archetype users – customer, drivers, and restaurants employees
+- Developed a conceptual model that incorporates/integrates the archetypical users’ views of the data
+- Iterated on the conceptual model and developed a logical model for a relational database
+- Implemented the model in MySQL and designed a REST API to provide access to the data
+- Implemented the REST Matrix utilizing Python as the backend language and Flask Framework
+- Designed a collection of simple and functional UI pages using AppSmith
 
 This repo contains a boilerplate setup for spinning up 3 Docker containers: 
-1. A MySQL 8 container for obvious reasons
-1. A Python Flask container to implement a REST API
-1. A Local AppSmith Server
+1. A MySQL 8 container for the database
+2. A Python Flask container to implement a REST API
+3. A Local AppSmith Server
 
-## How to setup and start the containers
-**Important** - you need Docker Desktop installed
+The following links are the project description and video demonstration. The project description contains detailed information about the three achetype users and their each personas, as well as the design process of the database, including both the ER and relational diagram. In addition to that, the REST API are developed and designed. The video demonstration shows how the user interact with the product using AppSmith.
 
-1. Clone this repository.  
-1. Create a file named `db_root_password.txt` in the `secrets/` folder and put inside of it the root password for MySQL. 
-1. Create a file named `db_password.txt` in the `secrets/` folder and put inside of it the password you want to use for the a non-root user named webapp. 
-1. In a terminal or command prompt, navigate to the folder with the `docker-compose.yml` file.  
-1. Build the images with `docker compose build`
-1. Start the containers with `docker compose up`.  To run in detached mode, run `docker compose up -d`. 
+Project Description: https://docs.google.com/document/d/13TxKMsoRXSUe4ToGqtZtKA2ipimP_SbJbbmhH9ykHck/edit?usp=sharing 
 
-
-
-VIDEO LINK: https://drive.google.com/file/d/1jX79YFrSTpx4WJlnRa0w93fEqY3t9rvb/view?usp=sharing
-
-
+Video Demonstration: https://drive.google.com/file/d/1jX79YFrSTpx4WJlnRa0w93fEqY3t9rvb/view?usp=sharing
 
 ![alt text](https://github.com/jiaying021218/UserEat/blob/main/UserEat%20Diagram.png)
 
