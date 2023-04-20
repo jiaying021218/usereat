@@ -15,9 +15,11 @@ This repo contains a boilerplate setup for spinning up 3 Docker containers:
 
 The following links are the project description and video demonstration. The project description contains detailed information about the three achetype users and their each personas, as well as the design process of the database, including both the ER and relational diagram. In addition to that, the REST API are developed and designed. The video demonstration shows how the user interact with the product using AppSmith.
 
-Project Description: https://docs.google.com/document/d/13TxKMsoRXSUe4ToGqtZtKA2ipimP_SbJbbmhH9ykHck/edit?usp=sharing 
+Project Description:
+https://docs.google.com/document/d/13TxKMsoRXSUe4ToGqtZtKA2ipimP_SbJbbmhH9ykHck/edit?usp=sharing 
 
-Video Demonstration: https://drive.google.com/file/d/1jX79YFrSTpx4WJlnRa0w93fEqY3t9rvb/view?usp=sharing
+Video Demonstration:
+https://drive.google.com/file/d/1jX79YFrSTpx4WJlnRa0w93fEqY3t9rvb/view?usp=sharing
 
 ![alt text](https://github.com/jiaying021218/UserEat/blob/main/UserEat%20Diagram.png)
 
