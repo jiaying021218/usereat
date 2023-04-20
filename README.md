@@ -14,13 +14,7 @@ This repo contains a boilerplate setup for spinning up 3 Docker containers:
 2. A Python Flask container to implement a REST API
 3. A Local AppSmith Server
 
-The following links are the project description and video demonstration. The project description contains detailed information about the three achetype users and their each personas, as well as the design process of the database, including both the ER and relational diagram. In addition to that, the REST API are developed and designed. The video demonstration shows how the user interact with the product using AppSmith.
-
-Project Description:
-https://docs.google.com/document/d/13TxKMsoRXSUe4ToGqtZtKA2ipimP_SbJbbmhH9ykHck/edit?usp=sharing 
-
-Video Demonstration:
-https://drive.google.com/file/d/1jX79YFrSTpx4WJlnRa0w93fEqY3t9rvb/view?usp=sharing
+The following links are the [project proposal and description](https://docs.google.com/document/d/13TxKMsoRXSUe4ToGqtZtKA2ipimP_SbJbbmhH9ykHck/edit?usp=sharing "Project Proposal and Description") and [video demonstration](https://drive.google.com/file/d/1jX79YFrSTpx4WJlnRa0w93fEqY3t9rvb/view?usp=sharing "Video Demonstration"). The project description contains detailed information about the three achetype users and their each personas, as well as the design process of the database, including both the ER and relational diagram. In addition to that, the REST API are developed and designed. The video demonstration shows how the user interact with the product using AppSmith.
 
 ![alt text](https://github.com/jiaying021218/UserEat/blob/main/UserEat%20Diagram.png)
 
